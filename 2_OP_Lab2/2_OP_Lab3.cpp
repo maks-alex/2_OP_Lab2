@@ -1,5 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+#include <sstream>
+#include <vector>
+
 #define SIZE 6
 int main()
 {
@@ -28,10 +36,16 @@ int main()
         {0,7,9,0,0,14},
         {7,0,10,15,0,0},
         {9,10,0,11,0,2},
-        {0,15,11,0,6,0},
+        {0,15,11,0,6,0},        //4 вершина (6 - дуга в 5 вершину)
         {0,0,0,6,0,9},
         {14,0,2,0,9,0},
     };
+
+
+
+
+
+
 
     // Вывод матрицы связей
     for (int i = 0; i < SIZE; i++)
@@ -109,6 +123,46 @@ int main()
     printf("\nВывод кратчайшего пути\n");
     for (int i = k - 1; i >= 0; i--)
         printf("%3d ", ver[i]);
-    getchar(); getchar();
+    getchar();
     return 0;
+}
+
+void Input_data()
+{
+    int a[8][8];
+    ifstream inf;
+    inf.open("input.txt");
+    if (!inf.is_open())
+    {
+        cout << "Cannot open file\n";
+    }
+    cout << "Chart" << endl;
+    string ch = "";
+    while (!inf.eof())
+    {
+        cin >> ch;
+        for (int i = 0; i < 8; i++)
+        {
+            a[i][i] = 0;
+            for (int j = i + 1; j < 8; j++)
+                if (ch == "X")
+                {
+                    a[i][j] = 0;
+                    a[j][i] = 0;
+                }
+
+                else
+                {
+                    a[i][j] = 1;
+                    a[j][i] = 1;
+                }
+        }
+    }
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = i + 1; j < 8; j++)
+            cout << a[i][j];
+    }
+    inf.close();
+
 }
